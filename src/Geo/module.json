@@ -1,0 +1,9 @@
+{
+  "name": "Geo",
+  "title": "Geographic Plugin",
+  "model": [
+    "Geo_Location",
+    "Geo_SearchStatistic"
+  ],
+  "permisson": []
+}
