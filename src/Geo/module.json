@@ -3,6 +3,7 @@
   "title": "Geographic Plugin",
   "model": [
     "Geo_Location",
+    "Geo_Tag",
     "Geo_SearchStatistic"
   ],
   "permisson": []
