@@ -6,7 +6,7 @@
  * @author maso
  *
  */
-class Geo_DB_Field_Point extends Pluf_DB_Field
+class Geo_DB_Field_Geometry extends Pluf_DB_Field
 {
 
     public $type = 'geometry';

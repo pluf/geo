@@ -2,11 +2,11 @@
 
 /**
  * ساختار داده‌ای یک مکان را تعیین می‌کند.
- * 
+ *
  * @author maso <mostafa.barmshory@dpq.co.ir>
  *
  */
-class Geo_Location extends Pluf_Model
+class Geo_Polygon extends Pluf_Model
 {
 
     /**
@@ -16,14 +16,14 @@ class Geo_Location extends Pluf_Model
      */
     function init ()
     {
-        $this->_a['table'] = 'geo_location';
+        $this->_a['table'] = 'geo_polygon';
         $this->_a['cols'] = array(
                 'id' => array(
                         'type' => 'Pluf_DB_Field_Sequence',
                         'blank' => true
                 ),
                 'point' => array(
-                        'type' => 'Geo_DB_Field_Point',
+                        'type' => 'Geo_DB_Field_Polygon',
                         'blank' => false
                 )
         );

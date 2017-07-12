@@ -24,7 +24,7 @@ require_once 'Pluf.php';
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class PointBasicTest extends TestCase
+class PolygonBasicTest extends TestCase
 {
 
     /**
@@ -40,7 +40,7 @@ class PointBasicTest extends TestCase
      */
     public function testClassInstance ()
     {
-        $p = new Geo_Point();
+        $p = new Geo_Polygon();
         $this->assertTrue(isset($p));
     }
 }

@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Geometry value
+ * Polygon value
  *
  * @author maso
  *
  */
-class Geo_DB_Field_Point extends Pluf_DB_Field
+class Geo_DB_Field_Polygon extends Pluf_DB_Field
 {
     
     public $type = 'polygon';

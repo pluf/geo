@@ -53,14 +53,14 @@ $cfg['app_views'] = dirname(__FILE__) . '/views.php';
 $cfg['db_login'] = 'root';
 $cfg['db_password'] = '';
 $cfg['db_server'] = 'localhost';
-$cfg['db_database'] = dirname(__FILE__) . '/../tmp/tmp.sqlite.db';
+$cfg['db_database'] = 'test';
 
 $cfg['app_base'] = '/testapp';
 $cfg['url_format'] = 'simple';
 
-$cfg['template_tags'] = array(
-        'mytag' => 'Pluf_Template_Tag_Mytag'
-);
+// $cfg['template_tags'] = array(
+//         'mytag' => 'Pluf_Template_Tag_Mytag'
+// );
 
 // Must be shared by all the installed_apps and the core framework.
 // That way you can have several installations of the core framework.
