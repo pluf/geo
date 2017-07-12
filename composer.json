@@ -17,8 +17,7 @@
 	],
 	"minimum-stability" : "stable",
 	"require" : {
-		"pluf/core" : "^2.1.3",
-		"pluf/cms" : "^2.1.3"
+		"pluf/core" : "^2.1.3"
 	},
 	"require-dev" : {
 		"phpunit/phpunit" : "^5.7.14",

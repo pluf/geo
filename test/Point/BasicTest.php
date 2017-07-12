@@ -32,7 +32,7 @@ class PointBasicTest extends TestCase
      */
     public function setUp ()
     {
-        Pluf::start(dirname(__FILE__) . '/../conf/pluf.config.php');
+        Pluf::start(dirname(__FILE__) . '/../conf/config.mysql.php');
     }
 
     /**
