@@ -1,4 +1,7 @@
 <?php
+
+Pluf::loadFunction('Geo_DB_PointToDB');
+
 return array (
 // 		'Jayab_Vote' => array (
 // 				'relate_to' => array (

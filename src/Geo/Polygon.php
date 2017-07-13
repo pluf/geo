@@ -17,12 +17,13 @@ class Geo_Polygon extends Pluf_Model
     function init ()
     {
         $this->_a['table'] = 'geo_polygon';
+        $this->_a['engine'] = 'MyISAM';
         $this->_a['cols'] = array(
                 'id' => array(
                         'type' => 'Pluf_DB_Field_Sequence',
                         'blank' => true
                 ),
-                'point' => array(
+                'polygon' => array(
                         'type' => 'Geo_DB_Field_Polygon',
                         'blank' => false
                 )

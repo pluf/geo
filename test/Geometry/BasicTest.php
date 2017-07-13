@@ -20,6 +20,8 @@ use PHPUnit\Framework\TestCase;
 
 require_once 'Pluf.php';
 
+Pluf::loadFunction('Geo_DB_GeometryToDB');
+
 /**
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
@@ -27,14 +29,83 @@ require_once 'Pluf.php';
 class GeometryBasicTest extends TestCase
 {
 
+    
     /**
-     * @before
+     * @beforeClass
      */
-    public function setUp ()
+    public static function createDataBase ()
     {
-        Pluf::start(dirname(__FILE__) . '/../conf/config.mysql.php');
+        Pluf::start(
+                array(
+                        'test' => false,
+                        'timezone' => 'Europe/Berlin',
+                        'debug' => true,
+                        'installed_apps' => array(
+                                'Pluf', 'Geo'
+                        ),
+                        'tmp_folder' => dirname(__FILE__) . '/../tmp',
+                        'templates_folder' => array(
+                                dirname(__FILE__) . '/../templates'
+                        ),
+                        'pluf_use_rowpermission' => true,
+                        'mimetype' => 'text/html',
+                        'app_views' => dirname(__FILE__) . '/views.php',
+                        'db_login' => 'root',
+                        'db_password' => '',
+                        'db_server' => 'localhost',
+                        'db_database' => 'test',
+                        'app_base' => '/testapp',
+                        'url_format' => 'simple',
+                        'db_table_prefix' => 'geo_unit_tests_',
+                        'db_version' => '5.0',
+                        'db_engine' => 'MySQL',
+                        'bank_debug' => true,
+                        'orm.typecasts' => array(
+                                'Geo_DB_Field_Polygon' => array(
+                                        'Geo_DB_GeometryFromDb',
+                                        'Geo_DB_PolygonToDb'
+                                ),
+                                'Geo_DB_Field_Geometry' => array(
+                                        'Geo_DB_GeometryFromDb',
+                                        'Geo_DB_GeometryToDb'
+                                ),
+                                'Geo_DB_Field_Point' => array(
+                                        'Geo_DB_GeometryFromDb',
+                                        'Geo_DB_PointToDb'
+                                )
+                        )
+                ));
+        
+        $db = Pluf::db();
+        $schema = Pluf::factory('Pluf_DB_Schema', $db);
+        $models = array(
+                'Geo_Geometry'
+        );
+        foreach ($models as $model) {
+            $schema->model = Pluf::factory($model);
+            $schema->dropTables();
+            if (true !== ($res = $schema->createTables())) {
+                throw new Exception($res);
+            }
+        }
     }
-
+    
+    /**
+     * @afterClass
+     */
+    public static function removeDatabses ()
+    {
+        $db = Pluf::db();
+        $schema = Pluf::factory('Pluf_DB_Schema', $db);
+        $models = array(
+                'Geo_Geometry'
+        );
+        foreach ($models as $model) {
+            $schema->model = Pluf::factory($model);
+            $schema->dropTables();
+        }
+    }
+    
     /**
      * @test
      */
@@ -42,6 +113,24 @@ class GeometryBasicTest extends TestCase
     {
         $p = new Geo_Geometry();
         $this->assertTrue(isset($p));
+    }
+    
+    /**
+     * @test
+     */
+    public function testPoint ()
+    {
+        $p = new Geo_Geometry();
+        $p->geometry = 'POINT(1 9)';
+        $this->assertTrue(isset($p));
+        $this->assertTrue($p->create());
+        $this->assertFalse($p->isAnonymous());
+        
+        $p2 = Pluf::factory('Geo_Geometry', $p->id);
+        $this->assertTrue(isset($p2));
+        $this->assertFalse($p2->isAnonymous());
+        
+        $this->assertTrue(strrpos($p2->geometry, "POINT") !== FALSE);
     }
 }
 

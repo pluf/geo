@@ -17,14 +17,15 @@ class Geo_Geometry extends Pluf_Model
     function init ()
     {
         $this->_a['table'] = 'geo_geometry';
+        $this->_a['engine'] = 'MyISAM';
         $this->_a['cols'] = array(
                 'id' => array(
                         'type' => 'Pluf_DB_Field_Sequence',
                         'blank' => true
                 ),
-                'point' => array(
-                        'type' => 'Geo_DB_Field_Point',
-                        'blank' => false
+                'geometry' => array(
+                        'type' => 'Geo_DB_Field_Geometry',
+                        'blank' => true
                 )
         );
         $this->_a['idx'] = array();
