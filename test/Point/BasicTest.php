@@ -56,7 +56,7 @@ class PointBasicTest extends TestCase
                         'db_database' => 'test',
                         'app_base' => '/testapp',
                         'url_format' => 'simple',
-                        'db_table_prefix' => 'geo_unit_tests_',
+                        'db_table_prefix' => 'geo_unit_tests_point_',
                         'db_version' => '5.0',
                         'db_engine' => 'MySQL',
                         'bank_debug' => true,
@@ -98,7 +98,7 @@ class PointBasicTest extends TestCase
         );
         foreach ($models as $model) {
             $schema->model = Pluf::factory($model);
-//             $schema->dropTables();
+            $schema->dropTables();
         }
     }
 
@@ -117,6 +117,10 @@ class PointBasicTest extends TestCase
         $p2 = Pluf::factory('Geo_Point', $p->id);
         $this->assertTrue(isset($p2));
         $this->assertFalse($p2->isAnonymous());
+        
+        $this->assertTrue(strrpos($p2->point, "POINT") !== FALSE);
     }
+    
+    
 }
 
