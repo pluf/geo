@@ -17,6 +17,7 @@ class Geo_Point extends Pluf_Model
     function init ()
     {
         $this->_a['table'] = 'geo_point';
+        $this->_a['engine'] = 'MyISAM';
         $this->_a['cols'] = array(
                 'id' => array(
                         'type' => 'Pluf_DB_Field_Sequence',

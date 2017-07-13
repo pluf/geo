@@ -20,6 +20,9 @@ use PHPUnit\Framework\TestCase;
 
 require_once 'Pluf.php';
 
+
+Pluf::loadFunction('Geo_DB_PointToDB');
+
 /**
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
@@ -28,11 +31,75 @@ class PointBasicTest extends TestCase
 {
 
     /**
-     * @before
+     * @beforeClass
      */
-    public function setUp ()
+    public static function createDataBase ()
     {
-        Pluf::start(dirname(__FILE__) . '/../conf/config.mysql.php');
+        Pluf::start(
+                array(
+                        'test' => false,
+                        'timezone' => 'Europe/Berlin',
+                        'debug' => true,
+                        'installed_apps' => array(
+                                'Pluf'
+                        ),
+                        'tmp_folder' => dirname(__FILE__) . '/../tmp',
+                        'templates_folder' => array(
+                                dirname(__FILE__) . '/../templates'
+                        ),
+                        'pluf_use_rowpermission' => true,
+                        'mimetype' => 'text/html',
+                        'app_views' => dirname(__FILE__) . '/views.php',
+                        'db_login' => 'root',
+                        'db_password' => '',
+                        'db_server' => 'localhost',
+                        'db_database' => 'test',
+                        'app_base' => '/testapp',
+                        'url_format' => 'simple',
+                        'db_table_prefix' => 'geo_unit_tests_',
+                        'db_version' => '5.0',
+                        'db_engine' => 'MySQL',
+                        'bank_debug' => true,
+                        'orm.typecasts' => array(
+                                'Geo_DB_Field_Point' => array(
+                                        'Geo_DB_PointFromDb',
+                                        'Geo_DB_PointToDb'
+                                )
+                        )
+                ));
+        
+        $db = Pluf::db();
+        $schema = Pluf::factory('Pluf_DB_Schema', $db);
+        $models = array(
+                'Geo_Point'
+            // 'Geo_Polygon',
+            // 'Geo_Geometry'
+        );
+        foreach ($models as $model) {
+            $schema->model = Pluf::factory($model);
+            $schema->dropTables();
+            if (true !== ($res = $schema->createTables())) {
+                throw new Exception($res);
+            }
+        }
+    }
+
+    /**
+     * @afterClass
+     */
+    public static function removeDatabses ()
+    {
+        $db = Pluf::db();
+        $schema = Pluf::factory('Pluf_DB_Schema', $db);
+        $models = array(
+                'Geo_Point'
+            // 'Geo_Polygon',
+            // 'Geo_Geometry'
+        );
+        foreach ($models as $model) {
+            $schema->model = Pluf::factory($model);
+//             $schema->dropTables();
+        }
     }
 
     /**
@@ -41,7 +108,15 @@ class PointBasicTest extends TestCase
     public function testClassInstance ()
     {
         $p = new Geo_Point();
+        $p->point = 'POINT(0 1)';
         $this->assertTrue(isset($p));
+
+        $this->assertTrue($p->create());
+        $this->assertFalse($p->isAnonymous());
+        
+        $p2 = Pluf::factory('Geo_Point', $p->id);
+        $this->assertTrue(isset($p2));
+        $this->assertFalse($p2->isAnonymous());
     }
 }
 
