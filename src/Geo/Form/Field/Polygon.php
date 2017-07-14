@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Geometry value
+ * Polygon value
  *
  * @author maso
  *
