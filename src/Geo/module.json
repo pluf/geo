@@ -2,7 +2,9 @@
   "name": "Geo",
   "title": "Geographic Plugin",
   "model": [
-    "Geo_Location",
+    "Geo_Point",
+    "Geo_Polygon",
+    "Geo_Geometry",
     "Geo_Tag",
     "Geo_SearchStatistic"
   ],
