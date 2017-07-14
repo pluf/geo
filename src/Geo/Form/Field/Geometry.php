@@ -6,7 +6,7 @@
  * @author maso
  *
  */
-class Geo_Form_Field_Point extends Pluf_Form_Field
+class Geo_Form_Field_Geometry extends Pluf_Form_Field
 {
 
     public $widget = 'Pluf_Form_Widget_TextInput';
