@@ -58,7 +58,7 @@ class Geo_Views_Location
                 $distance);
         // maso, 1394: گرفتن فهرست مناسبی از پیام‌ها
         // Paginator to paginate messages
-        $pag = new Pluf_Paginator(new Geo_Location());
+        $pag = new Pluf_Paginator(new Geo_Point());
         $pag->list_filters = array(
                 'reporter',
                 'community'
@@ -135,7 +135,7 @@ class Geo_Views_Location
     {
         $count = Geo_Shortcuts_locationCount($request);
         // Paginator to paginate messages
-        $pag = new Pluf_Paginator(new Geo_Location());
+        $pag = new Pluf_Paginator(new Geo_Point());
         $pag->list_filters = array(
                 'reporter',
                 'community'
@@ -248,7 +248,7 @@ class Geo_Views_Location
         $location = Geo_Shortcuts_GetLocationOr404($match[1]);
         // بررسی دسترسی دستکاری داده‌ها
         Geo_Precondition::canDeleteLocation($request, $location);
-        $tl = new Geo_Location($location->id);
+        $tl = new Geo_Point($location->id);
         $tl->id = 0;
         $location->delete();
         $request->user->setMessage(
