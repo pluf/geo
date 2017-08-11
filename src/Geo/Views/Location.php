@@ -58,7 +58,7 @@ class Geo_Views_Location
                 $distance);
         // maso, 1394: گرفتن فهرست مناسبی از پیام‌ها
         // Paginator to paginate messages
-        $pag = new Pluf_Paginator(new Geo_Location());
+        $pag = new Pluf_Paginator(new Geo_Point());
         $pag->list_filters = array(
                 'reporter',
                 'community'
@@ -72,22 +72,22 @@ class Geo_Views_Location
                         $bound['max']['long'],
                         $bound['min']['long']
                 ));
-        $tag = new SaaSKM_Tag();
-        if (array_key_exists('tag_key', $request->REQUEST) &&
-                 array_key_exists('tag_key', $request->REQUEST)) {
-            $pag->model_view = 'with_tag';
-            $tag = SaaSKM_Tag::getFromString($request->tenant, 
-                    $request->REQUEST['tag_key'] . '.' .
-                             $request->REQUEST['tag_value']);
-            if(!$tag){
-                throw new Pluf_Exception_DoesNotExist("Tag not found");
-            }
-            $pag->forced_where->SAnd(
-                    new Pluf_SQL('tag=%s', 
-                            array(
-                                    $tag->id
-                            )));
-        }
+//         $tag = new SaaSKM_Tag();
+//         if (array_key_exists('tag_key', $request->REQUEST) &&
+//                  array_key_exists('tag_key', $request->REQUEST)) {
+//             $pag->model_view = 'with_tag';
+//             $tag = SaaSKM_Tag::getFromString($request->tenant, 
+//                     $request->REQUEST['tag_key'] . '.' .
+//                              $request->REQUEST['tag_value']);
+//             if(!$tag){
+//                 throw new Pluf_Exception_DoesNotExist("Tag not found");
+//             }
+//             $pag->forced_where->SAnd(
+//                     new Pluf_SQL('tag=%s', 
+//                             array(
+//                                     $tag->id
+//                             )));
+//         }
         $list_display = array(
                 'title' => __('location title'),
                 'description' => __('description')
@@ -135,7 +135,7 @@ class Geo_Views_Location
     {
         $count = Geo_Shortcuts_locationCount($request);
         // Paginator to paginate messages
-        $pag = new Pluf_Paginator(new Geo_Location());
+        $pag = new Pluf_Paginator(new Geo_Point());
         $pag->list_filters = array(
                 'reporter',
                 'community'
@@ -208,7 +208,7 @@ class Geo_Views_Location
         // Get data
         $location = Geo_Shortcuts_GetLocationOr404($match[1]);
         // Check access
-        Geo_Precondition::canEditLocation($request, $location);
+//         Geo_Precondition::canEditLocation($request, $location);
         // Do
         $extra = array(
                 'user' => $request->user,
@@ -232,7 +232,7 @@ class Geo_Views_Location
     public function get ($request, $match)
     {
         $location = Geo_Shortcuts_GetLocationOr404($match[1]);
-        Geo_Precondition::canAccessLocation($request, $location);
+//         Geo_Precondition::canAccessLocation($request, $location);
         return new Pluf_HTTP_Response_Json($location);
     }
 
@@ -247,8 +247,8 @@ class Geo_Views_Location
     {
         $location = Geo_Shortcuts_GetLocationOr404($match[1]);
         // بررسی دسترسی دستکاری داده‌ها
-        Geo_Precondition::canDeleteLocation($request, $location);
-        $tl = new Geo_Location($location->id);
+//         Geo_Precondition::canDeleteLocation($request, $location);
+        $tl = new Geo_Point($location->id);
         $tl->id = 0;
         $location->delete();
         $request->user->setMessage(
