@@ -1,5 +1,4 @@
 <?php
-Pluf::loadFunction('User_Shortcuts_UpdateLeveFor');
 Pluf::loadFunction('Pluf_HTTP_URL_urlForView');
 Pluf::loadFunction('Pluf_Shortcuts_GetObjectOr404');
 
