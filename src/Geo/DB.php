@@ -17,6 +17,8 @@ function Geo_DB_GeometryFromDb ($val)
      * See:
      * https://dev.mysql.com/doc/refman/5.7/en/gis-data-formats.html#gis-internal-format
      */
+    if($val == null)
+        return null;
     $data = unpack("lsrid/H*wkb", $val);
     $wkb_reader = new WKB();
     $geometry = $wkb_reader->read($data['wkb'], TRUE);

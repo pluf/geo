@@ -9,7 +9,7 @@
 function Geo_Shortcuts_locationFactory ($object)
 {
     if ($object == null || ! isset($object))
-        return new Geo_Location();
+        return new Geo_Point();
     return $object;
 }
 
@@ -108,7 +108,7 @@ function Geo_Shortcuts_locationRadios ($request, $radius = 1000)
  */
 function Geo_Shortcuts_GetLocationOr404 ($id)
 {
-    $item = new Geo_Location($id);
+    $item = new Geo_Point($id);
     if ((int) $id > 0 && $item->id == $id) {
         return $item;
     }
@@ -116,42 +116,42 @@ function Geo_Shortcuts_GetLocationOr404 ($id)
             4311);
 }
 
-function Geo_Shortcuts_LoadJson ($tenant, $user, $filePath)
-{
-    $myfile = fopen($filePath, "r") or die("Unable to open file!");
-    $json = fread($myfile, filesize($filePath));
-    fclose($myfile);
-    $gosm = json_decode($json, true);
-    if (! array_key_exists('elements', $gosm)) {
-        return;
-    }
-    $TAG = new SaaSKM_Tag();
-    foreach ($gosm['elements'] as $node) {
-        if (array_key_exists('type', $node) && $node['type'] == 'node') {
-            // create location
-            $location = new Geo_Location();
-            $location->reporter = $user;
-            $location->community = $user->administrator;
-            if (array_key_exists('tags', $node) &&
-                     array_key_exists('name', $node['tags']))
-                $location->name = $node['tags']['name'];
-            $location->description = '';
-            $location->latitude = $node['lat'];
-            $location->longitude = $node['lon'];
-            $location->tenant = $tenant;
-            $location->create();
+// function Geo_Shortcuts_LoadJson ($tenant, $user, $filePath)
+// {
+//     $myfile = fopen($filePath, "r") or die("Unable to open file!");
+//     $json = fread($myfile, filesize($filePath));
+//     fclose($myfile);
+//     $gosm = json_decode($json, true);
+//     if (! array_key_exists('elements', $gosm)) {
+//         return;
+//     }
+//     $TAG = new SaaSKM_Tag();
+//     foreach ($gosm['elements'] as $node) {
+//         if (array_key_exists('type', $node) && $node['type'] == 'node') {
+//             // create location
+//             $location = new Geo_Location();
+//             $location->reporter = $user;
+//             $location->community = $user->administrator;
+//             if (array_key_exists('tags', $node) &&
+//                      array_key_exists('name', $node['tags']))
+//                 $location->name = $node['tags']['name'];
+//             $location->description = '';
+//             $location->latitude = $node['lat'];
+//             $location->longitude = $node['lon'];
+//             $location->tenant = $tenant;
+//             $location->create();
             
-            // add tags
-            if (array_key_exists('tags', $node)) {
-                foreach ($node['tags'] as $tk => $tv) {
-                    try {
-                        $tag = $tk . '.' . $tv;
-                        SaaSKM_TagRow::add($tenant, $location, $tag, true);
-                    } catch (Exception $e) {
-                        var_dump($e);
-                    }
-                }
-            }
-        }
-    }
-}
+//             // add tags
+//             if (array_key_exists('tags', $node)) {
+//                 foreach ($node['tags'] as $tk => $tv) {
+//                     try {
+//                         $tag = $tk . '.' . $tv;
+//                         SaaSKM_TagRow::add($tenant, $location, $tag, true);
+//                     } catch (Exception $e) {
+//                         var_dump($e);
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }
