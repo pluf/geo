@@ -4,7 +4,7 @@
  * مدل داده‌ای مکان را ایجاد می‌کند.
  * 
  * @param unknown $object
- * @return Pluf_User
+ * @return User
  */
 function Geo_Shortcuts_locationFactory ($object)
 {

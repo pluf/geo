@@ -5,7 +5,7 @@ Pluf::loadFunction('Geo_DB_PointToDB');
 return array (
 // 		'Jayab_Vote' => array (
 // 				'relate_to' => array (
-// 						'Pluf_User',
+// 						'User',
 // 						'Jayab_Location' 
 // 				) 
 // 		),

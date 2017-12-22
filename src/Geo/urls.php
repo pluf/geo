@@ -21,10 +21,10 @@ return array (
         'method' => 'create',
         'http-method' => 'POST',
         'precond' => array(
-            'Pluf_Precondition::loginRequired'
+            'User_Precondition::loginRequired'
         )
     ),
-    // 'Pluf_Precondition::loginRequired'
+    // 'User_Precondition::loginRequired'
     
     array( // لود کردن پرونده‌های جیسان
         'regex' => '#^/location/load/gson$#',
@@ -32,7 +32,7 @@ return array (
         'method' => 'loadGsonFile',
         'http-method' => 'POST',
         'precond' => array(
-            'Pluf_Precondition::loginRequired'
+            'User_Precondition::loginRequired'
         )
     ),
     array( // دریافت اطلاعات یک مکان
@@ -55,7 +55,7 @@ return array (
         'method' => 'delete',
         'http-method' => 'DELETE',
         'precond' => array(
-            'Pluf_Precondition::loginRequired'
+            'User_Precondition::loginRequired'
         )
     ),
     /*
@@ -158,7 +158,7 @@ return array (
         'model' => 'Geo_Views_Tag',
         'method' => 'update',
         'precond' => array(
-            'Pluf_Precondition::loginRequired'
+            'User_Precondition::loginRequired'
         ),
         'http-method' => array(
             'POST'
@@ -169,7 +169,7 @@ return array (
         'model' => 'Geo_Views_Tag',
         'method' => 'delete',
         'precond' => array(
-            'Pluf_Precondition::loginRequired'
+            'User_Precondition::loginRequired'
         ),
         'http-method' => array(
             'DELETE'
@@ -192,7 +192,7 @@ return array (
 //         'method' => 'myVote',
 //         'http-method' => 'GET',
 //         'precond' => array(
-//             'Pluf_Precondition::loginRequired'
+//             'User_Precondition::loginRequired'
 //         )
 //     ),
 //     array( // به روز کردن و یا ایجاد رای به یک مکان
@@ -201,7 +201,7 @@ return array (
 //         'method' => 'create',
 //         'http-method' => 'POST',
 //         'precond' => array(
-//             'Pluf_Precondition::loginRequired'
+//             'User_Precondition::loginRequired'
 //         )
 //     ),
 //     array( // حذف رای کاربر از یک مکان
@@ -210,7 +210,7 @@ return array (
 //         'method' => 'delete',
 //         'http-method' => 'DELETE',
 //         'precond' => array(
-//             'Pluf_Precondition::loginRequired'
+//             'User_Precondition::loginRequired'
 //         )
 //     )
 );

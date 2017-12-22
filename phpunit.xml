@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit colors="true">
+	<testsuites>
+		<testsuite name="Pluf">
+			<directory>tests/Geometry/</directory>
+			<directory>tests/Point/</directory>
+			<directory>tests/Polygon/</directory>
+		</testsuite>
+	</testsuites>
+
+	<!-- Code coverage -->
+	<filter>
+		<whitelist addUncoveredFilesFromWhitelist="true">
+			<directory suffix=".php">src</directory>
+		</whitelist>
+	</filter>
+	<logging>
+        <log type="coverage-clover" target="build/logs/clover.xml"/>
+	</logging>
+</phpunit>
