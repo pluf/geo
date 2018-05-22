@@ -59,22 +59,11 @@ class Geo_Tag extends Pluf_Model
                 'blank' => true,
                 'verbose' => __('modification date')
             ),
-
-                /*
-                 * رابطه‌ها
-                 */
-                'tenant' => array(
-                'type' => 'Pluf_DB_Field_Foreignkey',
-                'model' => 'SaaS_Application',
-                'blank' => false,
-                'verbose' => __('tenant'),
-                'help_text' => __('Related tenant.')
-            )
         );
         $this->_a['idx'] = array(
             'tag_combo_idx' => array(
                 'type' => 'unique',
-                'col' => 'tag_key, tag_value, tenant'
+                'col' => 'tag_key, tag_value'
             )
         );
         
@@ -118,17 +107,14 @@ class Geo_Tag extends Pluf_Model
      *
      * @param
      *            tag رشته‌ای که تگ را تعیین می‌کند برای نمونه 'aminity.bank'
-     * @param
-     *            tenant ملک معادل
      * @return false|Geo_Tag The matching permission or false.
      */
-    public static function getFromString($tenant, $tag, $create = false)
+    public static function getFromString($tag, $create = false)
     {
         list ($key, $value) = explode('.', trim($tag));
-        $sql = new Pluf_SQL('tag_key=%s AND tag_value=%s AND tenant=%s', array(
+        $sql = new Pluf_SQL('tag_key=%s AND tag_value=%s', array(
             $key,
             $value,
-            $tenant->id
         ));
         $tags = Pluf::factory('Geo_Tag')->getList(array(
             'filter' => $sql->gen()
@@ -142,7 +128,6 @@ class Geo_Tag extends Pluf_Model
             $temp->tag_value = $value;
             $temp->tag_title = 'title';
             $temp->tag_description = 'tag description';
-            $temp->tenant = $tenant;
             if ($temp->create()) {
                 return $temp;
             }

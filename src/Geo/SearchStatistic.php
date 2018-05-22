@@ -29,11 +29,6 @@ class Geo_SearchStatistic extends Pluf_Model
                 'model' => 'User',
                 'blank' => true
             ),
-            'tenant' => array(
-                'type' => 'Pluf_DB_Field_Foreignkey',
-                'model' => 'SaaS_Application',
-                'blank' => true
-            ),
             'tag_key' => array(
                 'type' => 'Pluf_DB_Field_Varchar',
                 'blank' => true,
